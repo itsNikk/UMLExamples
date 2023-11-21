@@ -1,0 +1,53 @@
+@startuml
+
+class Ristorante {
+    - menu : Menu
+    - nome : String
+
+    + getMenu() : Menu
+    + richiediPiatto(piatto: Piatto) : Piatto
+}
+
+class Menu {
+    - piatti : Piatto[]
+}
+
+abstract class Piatto {
+    - nome : String
+    - ricetta : String
+    + cucina()
+}
+
+interface Cucinabile {
+    {abstract} + cucina()
+}
+
+class Dolce {
+    +cucina()
+}
+
+class Sugo {
+    +cucina()
+}
+
+class PrimoPiatto {
+    - sugo : Sugo
+    +cucina()
+}
+
+
+PrimoPiatto "1" --> "1" Sugo : eCondito
+PrimoPiatto  --|>  Piatto
+Sugo --|> Piatto
+Dolce --|> Piatto
+
+Piatto <|.. Cucinabile : implementa
+' stessa cosa di: Cucinabile ---> Piatto
+
+Ristorante "1" *--  "1" Menu : ha
+' aggregazione
+Menu "1" o--- "1..*" Piatto
+
+
+
+@enduml
