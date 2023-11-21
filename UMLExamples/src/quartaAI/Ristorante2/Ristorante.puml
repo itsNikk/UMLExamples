@@ -1,0 +1,68 @@
+@startuml
+
+class Ristorante {
+    - nome : String
+    - menu : Menu
+    - cuochi : Cuoco[]
+    +getNome() : String
+    +richiediPiatto(piatto: Piatto) : boolean
+}
+
+class Menu {
+    - piatti : Piatto[]
+
+    +getPiatti() : Piatto[]
+}
+
+abstract class Piatto {
+    -nome : String
+    -ricetta : String
+    {abstract} +cucina() : void
+}
+
+interface Cucinabile {
+    + cucina() : void
+}
+
+class Dolce {
+    + cucina() : void
+}
+
+class SecondoPiatto {
+    + cucina() : void
+}
+
+class Sugo {
+    + cucina() : void
+}
+
+class PrimoPiatto{
+    - sugo : Sugo
+    + cucina() : void
+}
+
+class Cuoco {
+    - nome : String
+    - specilità : String
+
+    +preparaPiatto(piatto: Piatto) : void
+}
+
+
+Ristorante "1" ---> "1...*" Cuoco : impiega
+Cuoco ...> Piatto : <<chiama>>
+SecondoPiatto ---|> Piatto
+PrimoPiatto ---|> Piatto
+PrimoPiatto "0..*" -up--> "1" Sugo
+Dolce ---|> Piatto
+Sugo -up--|> Piatto
+Piatto <|.left. Cucinabile : implementa
+Ristorante "1" *--- "1" Menu : ha
+Menu "1" o--- "1..*" Piatto : contiene
+
+' questo è un commento ---> (apostrofo)
+
+
+
+
+@enduml

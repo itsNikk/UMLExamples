@@ -1,4 +1,4 @@
-package Ristorante;
+package quartaBI.Ristorante;
 
 public class Dolce extends Piatto {
 
