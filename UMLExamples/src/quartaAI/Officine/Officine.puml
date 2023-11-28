@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+
+:Ufficio Marketing: as UM
+:Dipendente: as Dip
+:Direttore: as Dir
+
+package Officina{
+' UC UffMarketing
+(gestione comunicazione clienti) as ComClienti
+(interrogazione dati clienti) as datiClienti
+
+'UC Dipendente
+(registrazione dati veicoli in ingresso) as datiIngressoVeicolo
+(interrogare archivio riparazioni)
+
+usecase ripPadre as "effettuare riparazione
+--
+E.P.: quando conlusa"
+
+(effettuare riparazione semplice) as ripSempl
+(effettuare riparazione complessa) as ripCompl
+(registra terminazione riparazione semplice) as termSempl
+(registra terminazione riparazione complessa) as termCompl
+(consegna veicolo)
+
+'UC Direttore
+(rilascio garanzia)
+
+}
+
+' Relazioni UffMarketing
+UM --- ComClienti : gsetisce
+UM --- datiClienti : interroga
+ComClienti ...> datiClienti : <<include>>
+
+'Relazioni Dipendente
+Dip -- datiIngressoVeicolo : inserisce
+Dip -- (interrogare archivio riparazioni) : interroga
+Dip -- termSempl
+Dip -- ripPadre
+ripSempl -up-|> ripPadre
+ripCompl -up-|> ripPadre
+
+' relazioni Direttore
+Dir -- termCompl
+Dir -- (interrogare archivio riparazioni) : interroga
+termCompl ..> (rilascio garanzia) : <<include>>
+termCompl ..> (consegna veicolo) : <<include>>
+
+datiIngressoVeicolo ..> datiClienti :<<include>>
+
+termSempl ..> (interrogare archivio riparazioni) : <<include>>
+termCompl ..> (interrogare archivio riparazioni) : <<include>>
+
+ripPadre <.. termSempl : <<extend>>
+ripPadre <.. termCompl : <<extend>>
+
+@enduml
