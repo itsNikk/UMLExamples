@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+
+:Dipendente: as dip
+:Direttore: as dir
+:Ufficio Marketing: as uffMark
+:Cliente:
+
+package Officina {
+(registrare dati veicoli in ingresso) as ingressoVeicolo
+(interrogare archivio riparazioni)
+usecase ripPadre as "effetuare riparazioni
+--
+E.P.: quando conclusa
+"
+(effetuare riparazione semplice) as ripSemp
+(effetuare riparazione complessa) as ripDiff
+(registrazione terminazione riparazione) as regTermRipSempl
+(registrazione terminazione riparazione complesse) as regTermRipDiff
+
+usecase GA as "gestione anagrafica dipendenti
+--
+E.P.: se il direttore vuole"
+
+(riconegna veicolo) as riconsegna
+(gestione dati clienti) as datiClienti
+(gestione comunicazione clienti) as ComClienti
+(rilascio garanzia)
+(visualizza dati dipendenti) as visDip
+(modifica dati dipendenti) as modDip
+
+
+}
+
+ripSemp <|-up- ripPadre
+ripDiff <|-up- ripPadre
+
+dip --- ingressoVeicolo : effettua
+dip --- ripPadre
+dip --- regTermRipSempl
+dip --- (interrogare archivio riparazioni)
+
+dir --- (interrogare archivio riparazioni)
+
+dir --- regTermRipDiff
+regTermRipDiff ..> (rilascio garanzia) : <<include>>
+uffMark --- datiClienti
+uffMark --- ComClienti
+
+regTermRipSempl ..> (interrogare archivio riparazioni) : <<include>>
+regTermRipDiff ..> (interrogare archivio riparazioni) : <<include>>
+regTermRipDiff ..> riconsegna : <<include>>
+regTermRipSempl ..> riconsegna : <<include>>
+regTermRipSempl ...> ripPadre : <<extend>>
+regTermRipDiff ...> ripPadre : <<extend>>
+dir --- GA
+GA <.. modDip : <<extend>>
+
+(registrare dati veicoli in ingresso) ...> anagrafica : <<include>>
+
+@enduml
