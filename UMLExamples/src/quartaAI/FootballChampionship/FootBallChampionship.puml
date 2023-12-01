@@ -1,6 +1,42 @@
 @startuml
 left to right direction
 
+:FIGC:
+:Arbitro:
+:Presidente:
+:Allenatore:
+
+(Definire Calendario)
+(Designare arbitri)
+(Gestione Archivio Partite)
+(Gestione Giocatori Partita)
+(Gestione Calcio Mercato)
+(Compravendita Calciatori)
+(Compravendita Allenatori)
+
+(Stampa schedine)
+(Stampa classifica)
+
+FIGC --- (Definire Calendario)
+FIGC --- (Designare arbitri)
+FIGC --- (Stampa schedine)
+FIGC --- (Stampa classifica)
+
+(Stampa schedine) ...> (Gestione Archivio Partite) : <<include>>
+(Stampa classifica) ...> (Gestione Archivio Partite) : <<include>>
+
+Arbitro --- (Gestione Archivio Partite) : memorizza risultato
+
+Allenatore --- (Gestione Giocatori Partita)
+
+Presidente --- (Gestione Calcio Mercato)
+(Gestione Calcio Mercato) <... (Compravendita Allenatori) : <<extend>>
+(Gestione Calcio Mercato) <... (Compravendita Calciatori): <<extend>>
 
 
+note left of (Stampa classifica)
+    questo stato include (Gestione Archivio Partite)
+    nel senso che bisogna visualizzare l'elenco delle partite effettuate
+    per poter stampare una classifica.
+end note
 @enduml
