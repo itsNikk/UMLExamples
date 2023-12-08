@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+
+:Capo di Polizia: as capo
+:Dipendente: as dipe
+:Detective: as dete
+:Agente di Pattuglia: as patt
+:Sergente di Scrivania: as scriv
+
+
+package "Los Bosques Police Station" {
+
+    (Organizzare incontri sindaco) as collSind
+    (Classificare fascicoli casi)
+    (Fare rapporto al Capo di Polizia)
+    (Interrogare sospettati)
+    (Investigare crimine)
+    (Interrogare testimone cittadino) as interCitt
+    usecase interVIP as "Interrogare testimone VIP
+    --
+    E.P.: Se Sindaco accetta
+    "
+    usecase pattugliare as "
+    Pattugliare strade
+    --
+    E.P.: se crimine verificato
+    "
+    (Gestione archivio prove)
+
+}
+
+dete <|-- dipe
+patt <|-- dipe
+scriv <|-- dipe
+
+dipe -- (Fare rapporto al Capo di Polizia)
+
+capo -- collSind
+capo -- (Classificare fascicoli casi)
+(Classificare fascicoli casi) ..> (Gestione archivio prove) : <<include>>
+
+patt -- pattugliare
+pattugliare <.. (Gestione archivio prove) : <<extend>>
+
+dete -- (Interrogare sospettati)
+dete -- (Investigare crimine)
+
+scriv -- (Interrogare sospettati)
+scriv -- (Investigare crimine)
+
+dete -- interCitt
+dete -- interVIP
+interVIP <.. collSind : <<extend>>
+
+
+(Interrogare sospettati) ..> (Gestione archivio prove) : <<include>>
+(Investigare crimine) ..> (Gestione archivio prove) : <<include>>
+interCitt ..> (Gestione archivio prove) : <<include>>
+interVIP ..> (Gestione archivio prove) : <<include>>
+@enduml
