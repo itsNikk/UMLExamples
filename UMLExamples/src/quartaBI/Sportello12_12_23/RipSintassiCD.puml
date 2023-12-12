@@ -40,7 +40,7 @@ class D{
 ' Associazioni / relazioni tra classi
 ' x chiama/usa/utilizza y
 ' y chiama/usa/utilizza x
-x -- y
+x -- y : gestisce
 ' A chiama/ecc B ma NON viceversa
 A --> B
 
@@ -77,5 +77,12 @@ Tutto o-- Parte : aggregazione
 ' composizione = la parte NON esiste senza il TUTTO
 Tutto *-- Parte : composizione
 
+class Piatto{}
+
+class Cuoco {
++ {static} cucinaPiatto(piatto : Piatto)
+}
+
+Cuoco ..> Piatto : chiama
 
 @enduml
