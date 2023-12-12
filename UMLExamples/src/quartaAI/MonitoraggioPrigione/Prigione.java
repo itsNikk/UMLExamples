@@ -5,15 +5,15 @@ public class Prigione {
     private String indirizzo;
     private SistemaMonitoraggio[] sistemiMonitoraggio;
 
-    public Prigione(SistemaMonitoraggio[] sistemiMonitoraggio){
-        this.sistemiMonitoraggio = sistemiMonitoraggio;
+    // traduzione aggregazione
+    public void aggiungiSistemaMointoraggio(SistemaMonitoraggio sistemaMonitoraggio) {
     }
 
-    public void aggiungiSistema(SistemaMonitoraggio sistema){
-        //impl
+    public void rimuoviSistemaMointoraggio(SistemaMonitoraggio sistemaMonitoraggio) {
     }
 
-    public void rivmuoviSistema(SistemaMonitoraggio sistema){
-        //impl
+    //traduzione composizione
+    public Prigione(SistemaMonitoraggio[] sistemi) {
+        sistemiMonitoraggio = sistemi;
     }
 }

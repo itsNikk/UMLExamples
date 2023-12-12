@@ -1,6 +1,10 @@
 package quartaAI.MonitoraggioPrigione;
 
 public class SensoreMovimento extends Sensore {
+    @Override
+    public void eseguiDiagnostica() {
+        //implementazione varia
+    }
 
     @Override
     public void accendi() {
@@ -12,12 +16,7 @@ public class SensoreMovimento extends Sensore {
 
     }
 
-    @Override
-    public void eseguiDiagnostica() {
-
-    }
-
     public boolean rilevaMovimento(){
-        return false;
+        return true;
     }
 }
