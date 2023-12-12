@@ -1,0 +1,81 @@
+@startuml
+' classe concreta
+class Test {
+    - ID : int
+    'protected
+    # f : int
+    ' visibilità package
+    ~ v : float
+    + count : float
+    + Foo() : String
+    + {static} staticMethod(x : int)
+}
+
+' Classe astratta
+abstract class Bar {
+    ' - = private
+    - x : int
+    ' + = public
+    + test() : boolean
+    + {abstract} abstractMethod()
+}
+
+class x {
+- y : Y
+}
+class y {
+- x : X
+}
+
+class A {
+    - b:B
+}
+class B {}
+
+class C{}
+class D{
+- c : C[]
+}
+
+' Associazioni / relazioni tra classi
+' x chiama/usa/utilizza y
+' y chiama/usa/utilizza x
+x -- y
+' A chiama/ecc B ma NON viceversa
+A --> B
+
+' D chiama C e NON viceversa.
+' D contiene PIU' RIFERIMENTI a C
+C "1...*" <-- "1" D
+' 2...6
+' 1...5, 9
+' 0...*
+
+class Padre{}
+class Figlio1{}
+class Figlio2{}
+
+Figlio1 -up-|> Padre
+Figlio2 -up-|> Padre
+
+
+interface Accendibile{
+    + accendi()
+}
+
+class Sensore {
+    +accendi()
+}
+
+Sensore <|.. Accendibile : <<realizzazione>>
+
+class Parte{}
+class Tutto{}
+
+' la parte PUO' esistere senza in TUTTO
+Tutto o-- Parte : aggregazione
+' composizione = la parte NON esiste senza il TUTTO
+Tutto *-- Parte : composizione
+
+
+@enduml
