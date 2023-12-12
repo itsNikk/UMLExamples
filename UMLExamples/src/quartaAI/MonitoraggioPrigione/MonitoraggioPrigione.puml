@@ -1,0 +1,53 @@
+@startuml
+
+class SistemaMonitoraggio {
+    - sensori : Sensore[]
+    +accendi()
+    +spegni()
+    +eleboraStatistiche()
+    +aggiungiSensore(sensore: Sensore)
+    +rimuoviSensore(sensore: Sensore)
+}
+
+class Prigione {
+  -nome: String
+  -indirizzo: String
+  -sistemiMonitoraggio: SistemaMonitoraggio[]
+  +aggiungiSistemaMonitoraggio(sistema: SistemaMonitoraggio)
+  +rimuoviSistemaMonitoraggio(sistema: SistemaMonitoraggio)
+}
+
+interface Accendibile {
+    +accendi()
+    +spegni()
+}
+
+abstract class Sensore {
+- ID: String
+- marca: String
+- modello : String
++{abstract} eseguiDiagnostica()
+}
+
+class SensoreMovimento {
+  +rilevaMovimento(): boolean
+  +accendi()
+  +spegni()
+  +eseguiDiagnostica()
+}
+
+class SensoreTemperatura {
+  +rilevaTemperatura(): float
+  +accendi()
+  +spegni()
+  +eseguiDiagnostica()
+}
+
+Prigione *-- "1..*"SistemaMonitoraggio: contiene
+
+SensoreMovimento -up-|> Sensore
+SensoreTemperatura -up-|> Sensore
+SistemaMonitoraggio o--- "1..*" Sensore : contiene
+Sensore <|.right.. Accendibile
+SistemaMonitoraggio <|.right.. Accendibile
+@enduml
