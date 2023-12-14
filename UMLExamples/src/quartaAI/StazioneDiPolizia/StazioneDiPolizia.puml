@@ -29,9 +29,9 @@ package "Los Bosques Police Station" {
 
 }
 
-dete <|-- dipe
-patt <|-- dipe
-scriv <|-- dipe
+dete --|> dipe
+patt --|> dipe
+scriv --|> dipe
 
 dipe -- (Fare rapporto al Capo di Polizia)
 

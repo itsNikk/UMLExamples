@@ -1,0 +1,46 @@
+@startuml
+
+' UC => diagrammi comportamentali
+' CHI fa COSA nel sistema
+
+
+' CHI? => Attori
+' entità attiva, coloro che fanno qualcosa
+:Cuoco: as cuoco
+:Studente:
+:Dipendente: as dip
+
+' Use Case => funzionalità previste
+' dalle specifiche per il mio sistema
+package Mensa {
+(Cucina) as cucina
+(Pulisci postazione)
+
+usecase entra as "
+Entra in mensa
+--
+E.P.: ha bedgeato
+"
+(Controllo badge)
+}
+
+' Associazioni / relazioni
+cuoco --- cucina
+
+' Relazioni di dipendenza
+' <<>> = stereotipo
+' include = rel dip. OBBLIGATORIA
+cucina ..> (Pulisci postazione) : <<include>>
+
+
+' Relazioni di dipendenza <<extend>>
+' Rel dip OPZIONALE
+Studente - entra
+entra <.. (Controllo badge) : <<extend>>
+
+' GENERALIZZAZIONE DI ATTORI
+dip <|--- :cuoco:
+dip <|--- :docente:
+
+dip -- (visita Medica annuale)
+@enduml
