@@ -1,0 +1,63 @@
+@startuml
+
+' CD = diagramma di struttura STATICO
+
+class A {
+    - x : int
+    + y : float
+    +Foo() : boolean
+    - Bar(noem: String) : String
+
+}
+
+class C {
+    + {static} staticMethod() : double
+}
+
+class Azienda {
+    - impiegati : Impiegato[]
+}
+
+class Impiegato {
+
+}
+
+abstract class B {
+    - a : int
+    + setA(newA: int)
+    + {abstract} abstractMethod()
+}
+
+interface Accendibile {
+    + accendi()
+}
+
+
+' Ereditarietà tra class
+A --|> B
+
+' Realizzaione di interfacce
+C <|.. Accendibile
+
+' Associazioni tra classi
+Azienda "1" --> "1...*" Impiegato : impiega
+
+' Associazioni parte-tutto
+class Auto {
+    + aggiungiRuota(ruota:Ruota)
+    + rimuoviRuota(ruota:Ruota)
+}
+class Ruota{
+}
+
+class CorpoUmano{
+    + addBRaccio(braccio:Braccio)
+    + remBRaccio(braccio:Braccio)
+}
+class Braccia{
+}
+
+
+Auto "1" o-- "4" Ruota : ha
+CorpoUmano "1" *-- "2" Braccia : èCompostoDa
+@enduml

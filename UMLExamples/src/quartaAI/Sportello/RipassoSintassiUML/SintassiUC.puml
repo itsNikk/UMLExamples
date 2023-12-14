@@ -1,0 +1,48 @@
+@startuml
+left to right direction
+
+' UC diagram = Diagramma comportamentale
+' CHI fa COSA nel sistema che voglio descrivere
+
+' CHI = Attori
+:Cuoco: as att1
+:Andrea: as att2
+:Sistema Antincendio: as SysInc
+
+package Esempio {
+    ' COSA = Use Case
+    (Cucina piatto) as CP
+    (lavare le mani) as LM
+    (Accendere fornello) as AccF
+    (monitoraggio fumi)
+
+    ' usecase <alias> as <" descrizione ">
+    usecase accAcqua as "
+    Accendere ugelli acqua
+    --
+    E.P.: se incendio rilevato
+    "
+}
+
+' Relazioni / Associazioni tra entità
+att1 -- CP
+att1 -- LM
+att2 -- (rotola)
+SysInc -- accAcqua
+SysInc --- (monitoraggio fumi)
+
+' Geneneralizzazione tra attori
+att1 <|-- att2
+
+' Relazioni di dipendenza include tra UC
+' OBBLIGATORIA
+CP ..> AccF : <<include>>
+
+' Relazione di dipendenza extend tra UC
+' OPZIONALE
+accAcqua <.. (monitoraggio fumi) : <<extend>>
+
+
+
+
+@enduml
