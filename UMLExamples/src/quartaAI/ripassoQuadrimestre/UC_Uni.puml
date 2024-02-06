@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+
+'ATTORI
+:Rettore: as re
+:Studenti: as s
+:Personale Amministrativo: as pa
+:Professori: as prof
+
+'UC
+(gestione studenti)
+(def corsi)
+(supervisione attività accademiche)
+(richiedere colloqui privati)
+(iscriversi ai corsi)
+(visualizzare i risultati)
+(accedere alle risorse online)
+(autenticazione studente)
+(definire i programmi)
+(valutare gli studenti)
+(caricare materiali didattici)
+(gestire le iscrizioni)
+(generare report)
+(gestione archivio degli studenti)
+usecase soll as "
+mandare solleciti
+--
+E.P.: se studente moroso
+"
+
+re -- (gestione studenti)
+re -- (def corsi)
+re -- (supervisione attività accademiche)
+
+s -- (iscriversi ai corsi)
+s -- (accedere alle risorse online)
+s -- (visualizzare i risultati)
+(accedere alle risorse online) ..> (autenticazione studente) : <<include>>
+
+prof -- (valutare gli studenti)
+prof -- (definire i programmi)
+prof -- (caricare materiali didattici)
+(caricare materiali didattici) ..> (autenticazione professore) : <<include>>
+(valutare gli studenti) ..> (autenticazione professore) : <<include>>
+(definire i programmi) ..> (autenticazione professore) : <<include>>
+
+pa -- (gestione archivio degli studenti)
+pa -- (generare report)
+pa -- (gestire le iscrizioni)
+pa -- soll
+soll <.. (gestione archivio degli studenti) : <<extend>>
+
+:utente:
+utente <|-- prof
+utente <|-- s
+utente <|-- pa
+
+utente -- (richiedere colloqui privati)
+@enduml

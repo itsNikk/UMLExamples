@@ -1,0 +1,14 @@
+@startuml
+class Padre {
+- attr1 : int
++ method1() : int
+- method2(v : int) : boolean
+}
+
+class Figlio{}
+
+
+Figlio -- Padre
+
+
+@enduml

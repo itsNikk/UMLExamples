@@ -1,0 +1,13 @@
+@startuml
+usecase UC1 as "
+login profilo
+--
+E.P.: se profilo non presente
+"
+
+:a1:
+
+a1 -- UC1
+(crea profilo)
+UC1 <.. (crea profilo) : <<extend>>
+@enduml
